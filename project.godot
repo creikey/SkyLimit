@@ -22,6 +22,8 @@ _global_script_class_icons={
 
 config/name="SkyLimit"
 run/main_scene="res://Main.tscn"
+boot_splash/image="res://icon.png"
+boot_splash/bg_color=Color( 0.054902, 0.027451, 0.105882, 1 )
 config/icon="res://icon.png"
 
 [display]

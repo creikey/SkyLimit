@@ -20,6 +20,9 @@ func _ready():
 	var local_center_of_mass: Vector2 = total / total_mass
 	tile.position = -local_center_of_mass
 
+func set_scale(s: Vector2):
+	$TileMap.scale = s
+
 func place():
 	set_collision_layer_bit(0, true)
 	set_collision_mask_bit(0, true)

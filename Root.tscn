@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Main.tres" type="TileSet" id=1]
 [ext_resource path="res://Walls.gd" type="Script" id=2]
@@ -9,7 +9,12 @@
 [ext_resource path="res://gomarice_no_continue.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://Space-Key.png" type="Texture" id=8]
 [ext_resource path="res://R-Key.png" type="Texture" id=9]
-[ext_resource path="res://Root.gd" type="Script" id=10]
+[ext_resource path="res://dot.png" type="Texture" id=10]
+[ext_resource path="res://UpNext.gd" type="Script" id=11]
+[ext_resource path="res://UI.gd" type="Script" id=12]
+[ext_resource path="res://SessionManager.gd" type="Script" id=13]
+[ext_resource path="res://place.wav" type="AudioStream" id=14]
+[ext_resource path="res://energize.wav" type="AudioStream" id=15]
 
 [sub_resource type="PhysicsMaterial" id=2]
 
@@ -18,6 +23,9 @@ radius = 8.0
 
 [sub_resource type="DynamicFont" id=3]
 size = 26
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=10]
 font_data = ExtResource( 7 )
 
 [sub_resource type="AtlasTexture" id=5]
@@ -52,8 +60,14 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="DynamicFont" id=11]
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=12]
+size = 26
+font_data = ExtResource( 7 )
+
 [node name="Root" type="Node2D"]
-script = ExtResource( 10 )
 
 [node name="Walls" type="StaticBody2D" parent="."]
 script = ExtResource( 2 )
@@ -98,7 +112,7 @@ __meta__ = {
 }
 
 [node name="Player" type="RigidBody2D" parent="."]
-position = Vector2( 128, 64 )
+position = Vector2( 132, 223 )
 physics_material_override = SubResource( 2 )
 continuous_cd = 2
 linear_damp = 0.2
@@ -136,6 +150,16 @@ modulate = Color( 1, 1, 1, 0.635294 )
 script = ExtResource( 6 )
 place_onto_path = NodePath("../Chunks")
 
+[node name="Place" type="AudioStreamPlayer" parent="ChunkPlacer"]
+stream = ExtResource( 14 )
+
+[node name="NextLine" type="Sprite" parent="."]
+texture = ExtResource( 10 )
+centered = false
+offset = Vector2( 0, -4 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 256, 8 )
+
 [node name="Chunks" type="Node2D" parent="."]
 
 [node name="Help" type="Node2D" parent="."]
@@ -161,6 +185,16 @@ custom_colors/font_color = Color( 1, 1, 1, 0.34902 )
 custom_fonts/font = SubResource( 3 )
 text = "restart:"
 
+[node name="Label3" type="Label" parent="Help"]
+show_behind_parent = true
+margin_left = 16.0
+margin_top = 211.0
+margin_right = 114.0
+margin_bottom = 238.0
+custom_colors/font_color = Color( 1, 1, 1, 0.34902 )
+custom_fonts/font = SubResource( 10 )
+text = "creikey"
+
 [node name="AnimatedSprite" type="AnimatedSprite" parent="Help"]
 modulate = Color( 1, 1, 1, 0.509804 )
 show_behind_parent = true
@@ -178,3 +212,39 @@ frames = SubResource( 7 )
 frame = 1
 speed_scale = 0.7
 playing = true
+
+[node name="UI" type="Control" parent="."]
+margin_right = 256.0
+margin_bottom = 256.0
+mouse_filter = 2
+script = ExtResource( 12 )
+
+[node name="HowManyLeft" type="Label" parent="UI"]
+anchor_right = 1.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 11 )
+text = "15231"
+align = 2
+
+[node name="Score" type="Label" parent="UI"]
+anchor_right = 1.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 12 )
+text = "2315"
+align = 1
+
+[node name="UpNext" type="Node2D" parent="UI"]
+modulate = Color( 0.858824, 0.858824, 0.858824, 0.917647 )
+position = Vector2( 216, 24 )
+script = ExtResource( 11 )
+
+[node name="SessionManager" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="Energize" type="AudioStreamPlayer" parent="SessionManager"]
+stream = ExtResource( 15 )
+
+[connection signal="up_next_changed" from="ChunkPlacer" to="UI/UpNext" method="_on_ChunkPlacer_up_next_changed"]
+[connection signal="reset_blocks_left_to" from="SessionManager" to="ChunkPlacer" method="_on_SessionManager_reset_blocks_left_to"]
