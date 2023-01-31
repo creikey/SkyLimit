@@ -1,0 +1,180 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Main.tres" type="TileSet" id=1]
+[ext_resource path="res://Walls.gd" type="Script" id=2]
+[ext_resource path="res://player.png" type="Texture" id=3]
+[ext_resource path="res://Player.gd" type="Script" id=4]
+[ext_resource path="res://wall.png" type="Texture" id=5]
+[ext_resource path="res://ChunkPlacer.gd" type="Script" id=6]
+[ext_resource path="res://gomarice_no_continue.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Space-Key.png" type="Texture" id=8]
+[ext_resource path="res://R-Key.png" type="Texture" id=9]
+[ext_resource path="res://Root.gd" type="Script" id=10]
+
+[sub_resource type="PhysicsMaterial" id=2]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.0
+
+[sub_resource type="DynamicFont" id=3]
+size = 26
+font_data = ExtResource( 7 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 64, 32 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 8 )
+region = Rect2( 64, 0, 64, 32 )
+
+[sub_resource type="SpriteFrames" id=4]
+animations = [ {
+"frames": [ SubResource( 5 ), SubResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 9 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=7]
+animations = [ {
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[node name="Root" type="Node2D"]
+script = ExtResource( 10 )
+
+[node name="Walls" type="StaticBody2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="TileMap" type="TileMap" parent="Walls"]
+visible = false
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 8, 8 )
+collision_use_parent = true
+format = 1
+tile_data = PoolIntArray( 0, 11, 0, 31, 12, 0, 65536, 11, 0, 65567, 12, 0, 131072, 11, 0, 131103, 12, 0, 196608, 11, 0, 196639, 12, 0, 262144, 11, 0, 262175, 12, 0, 327680, 11, 0, 327711, 12, 0, 393216, 11, 0, 393247, 12, 0, 458752, 11, 0, 458783, 12, 0, 524288, 11, 0, 524319, 12, 0, 589824, 11, 0, 589855, 12, 0, 655360, 11, 0, 655391, 12, 0, 720896, 11, 0, 720927, 12, 0, 786432, 11, 0, 786463, 12, 0, 851968, 11, 0, 851999, 12, 0, 917504, 11, 0, 917535, 12, 0, 983040, 11, 0, 983071, 12, 0, 1048576, 11, 0, 1048607, 12, 0, 1114112, 11, 0, 1114143, 12, 0, 1179648, 11, 0, 1179679, 12, 0, 1245184, 11, 0, 1245215, 12, 0, 1310720, 11, 0, 1310751, 12, 0, 1376256, 11, 0, 1376287, 12, 0, 1441792, 11, 0, 1441823, 12, 0, 1507328, 11, 0, 1507359, 12, 0, 1572864, 11, 0, 1572895, 12, 0, 1638400, 11, 0, 1638431, 12, 0, 1703936, 11, 0, 1703967, 12, 0, 1769472, 11, 0, 1769503, 12, 0, 1835008, 11, 0, 1835039, 12, 0, 1900544, 11, 0, 1900575, 12, 0, 1966080, 11, 0, 1966111, 12, 0, 2031616, 11, 0, 2031647, 12, 0 )
+
+[node name="LeftSprite" type="Sprite" parent="Walls"]
+texture = ExtResource( 5 )
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 8, 256 )
+
+[node name="RightSprite" type="Sprite" parent="Walls"]
+position = Vector2( 248, 0 )
+texture = ExtResource( 5 )
+centered = false
+flip_h = true
+region_enabled = true
+region_rect = Rect2( 0, 0, 8, 256 )
+
+[node name="Floor" type="StaticBody2D" parent="."]
+
+[node name="TileMap" type="TileMap" parent="Floor"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 8, 8 )
+collision_use_parent = true
+format = 1
+tile_data = PoolIntArray( 1900544, 8, 0, 1900545, 8, 0, 1900546, 9, 0, 1900547, 8, 0, 1900548, 10, 0, 1900549, 10, 0, 1900550, 9, 0, 1900551, 9, 0, 1900552, 9, 0, 1900553, 8, 0, 1900554, 9, 0, 1900555, 8, 0, 1900556, 8, 0, 1900557, 8, 0, 1900558, 10, 0, 1900559, 10, 0, 1900560, 9, 0, 1900561, 9, 0, 1900562, 9, 0, 1900563, 10, 0, 1900564, 10, 0, 1900565, 9, 0, 1900566, 9, 0, 1900567, 9, 0, 1900568, 10, 0, 1900569, 9, 0, 1900570, 9, 0, 1900571, 8, 0, 1900572, 8, 0, 1900573, 10, 0, 1900574, 10, 0, 1900575, 8, 0 )
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+margin_right = 256.0
+margin_bottom = 256.0
+mouse_filter = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Player" type="RigidBody2D" parent="."]
+position = Vector2( 128, 64 )
+physics_material_override = SubResource( 2 )
+continuous_cd = 2
+linear_damp = 0.2
+script = ExtResource( 4 )
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+limit_left = 0
+limit_right = 256
+limit_bottom = 256
+smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="Player"]
+texture = ExtResource( 3 )
+
+[node name="JumpCast" type="RayCast2D" parent="Player"]
+enabled = true
+cast_to = Vector2( 0, 16 )
+
+[node name="JumpCast2" type="RayCast2D" parent="Player"]
+position = Vector2( -5, 0 )
+enabled = true
+cast_to = Vector2( 0, 16 )
+
+[node name="JumpCast3" type="RayCast2D" parent="Player"]
+position = Vector2( 5, 0 )
+enabled = true
+cast_to = Vector2( 0, 16 )
+
+[node name="ChunkPlacer" type="Node2D" parent="."]
+modulate = Color( 1, 1, 1, 0.635294 )
+script = ExtResource( 6 )
+place_onto_path = NodePath("../Chunks")
+
+[node name="Chunks" type="Node2D" parent="."]
+
+[node name="Help" type="Node2D" parent="."]
+show_behind_parent = true
+
+[node name="Label" type="Label" parent="Help"]
+show_behind_parent = true
+margin_left = 16.0
+margin_top = 98.0
+margin_right = 101.0
+margin_bottom = 125.0
+custom_colors/font_color = Color( 1, 1, 1, 0.34902 )
+custom_fonts/font = SubResource( 3 )
+text = "Place:"
+
+[node name="Label2" type="Label" parent="Help"]
+show_behind_parent = true
+margin_left = 16.0
+margin_top = 130.0
+margin_right = 114.0
+margin_bottom = 157.0
+custom_colors/font_color = Color( 1, 1, 1, 0.34902 )
+custom_fonts/font = SubResource( 3 )
+text = "restart:"
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Help"]
+modulate = Color( 1, 1, 1, 0.509804 )
+show_behind_parent = true
+position = Vector2( 122, 110 )
+frames = SubResource( 4 )
+frame = 1
+speed_scale = 0.7
+playing = true
+
+[node name="AnimatedSprite2" type="AnimatedSprite" parent="Help"]
+modulate = Color( 1, 1, 1, 0.509804 )
+show_behind_parent = true
+position = Vector2( 132, 141 )
+frames = SubResource( 7 )
+frame = 1
+speed_scale = 0.7
+playing = true
