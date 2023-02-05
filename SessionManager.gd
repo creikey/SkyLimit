@@ -20,7 +20,8 @@ func _process(_delta):
 		emit_signal("reset_blocks_left_to", max_blocks)
 		for b in root.get_node("Chunks").get_children():
 			b.freeze()
-	score = max(score, int(-(player.global_position.y - 223.0)))
+# warning-ignore:narrowing_conversion
+	score = max(score, -int(player.global_position.y - 223.0))
 	
 	# this is bad but this game is due in 40 minutes
 	root.get_node("UI/Score").text = str(score)

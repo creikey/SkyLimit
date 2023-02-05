@@ -2,6 +2,9 @@ extends Node2D
 
 
 func _on_ChunkPlacer_up_next_changed(new_up_next):
+	call_deferred("on_up_next_changed", new_up_next)
+	
+func on_up_next_changed(new_up_next):
 	for c in get_children():
 		c.queue_free()
 	

@@ -1,5 +1,9 @@
 extends RigidBody2D
 
+class_name Player
+
+signal collected_pickup
+
 const move_force_floor: float = 600.0 + 350.0
 const move_force_air: float = 150.0
 const held_down_gravity_multiply: float = 0.5
@@ -38,7 +42,10 @@ func touching_wall() -> bool:
 		if w.is_colliding():
 			return true
 	return false
-	
+
+func on_collect_pickup():
+	emit_signal("collected_pickup")
+
 func _physics_process(_delta):
 	applied_force = Vector2()
 	$NoRotation.rotation = -global_rotation

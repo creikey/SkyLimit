@@ -2,6 +2,8 @@ extends RigidBody2D
 
 class_name Chunk
 
+signal frozen
+
 onready var tile: TileMap = $TileMap
 
 func _ready():
@@ -21,6 +23,7 @@ func _ready():
 	tile.position = -local_center_of_mass
 
 func freeze():
+	emit_signal("frozen")
 	mode = RigidBody2D.MODE_STATIC
 	$TileMap.material = preload("res://frozen.tres")
 

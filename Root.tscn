@@ -21,7 +21,7 @@ _data = [ Vector2( 0, 1 ), 0.0, 0.0766668, 0, 0, Vector2( 0.818182, 0 ), 0.0, 0.
 [sub_resource type="PhysicsMaterial" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
-radius = 8.0
+radius = 6.0
 
 [sub_resource type="DynamicFont" id=3]
 size = 26
@@ -225,5 +225,6 @@ script = ExtResource( 13 )
 [node name="Energize" type="AudioStreamPlayer" parent="SessionManager"]
 stream = ExtResource( 15 )
 
+[connection signal="collected_pickup" from="Player" to="ChunkPlacer" method="_on_Player_collected_pickup"]
 [connection signal="up_next_changed" from="ChunkPlacer" to="UI/UpNext" method="_on_ChunkPlacer_up_next_changed"]
 [connection signal="reset_blocks_left_to" from="SessionManager" to="ChunkPlacer" method="_on_SessionManager_reset_blocks_left_to"]

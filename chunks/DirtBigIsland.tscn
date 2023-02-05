@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Chunk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Decoration.tscn" type="PackedScene" id=2]
+[ext_resource path="res://BlockPickup.tscn" type="PackedScene" id=3]
 
 [node name="Dirt" instance=ExtResource( 1 )]
 
@@ -49,3 +50,18 @@ likelihood = 0.3
 position = Vector2( -8, 56 )
 rotation = 3.14159
 likelihood = 0.35
+
+[node name="BlockPickup" parent="TileMap" index="8" instance=ExtResource( 3 )]
+position = Vector2( -16, -56 )
+
+[node name="BlockPickup2" parent="TileMap" index="9" instance=ExtResource( 3 )]
+position = Vector2( 8, -56 )
+
+[node name="BlockPickup3" parent="TileMap" index="10" instance=ExtResource( 3 )]
+position = Vector2( 32, 32 )
+
+[node name="BlockPickup4" parent="TileMap" index="11" instance=ExtResource( 3 )]
+position = Vector2( -32, 0 )
+
+[node name="BlockPickup5" parent="TileMap" index="12" instance=ExtResource( 3 )]
+position = Vector2( 8, 56 )

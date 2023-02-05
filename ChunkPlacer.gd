@@ -85,3 +85,8 @@ func _on_SessionManager_reset_blocks_left_to(to):
 	while upcoming_chunks.size() < new_size:
 		upcoming_chunks.append(get_new_random_chunk())
 		updated_upcoming_chunks()
+
+
+func _on_Player_collected_pickup():
+	upcoming_chunks.append(get_new_random_chunk())
+	updated_upcoming_chunks()
