@@ -117,30 +117,37 @@ shape = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="Player"]
 texture = ExtResource( 3 )
 
-[node name="WallCastLeft" type="RayCast2D" parent="Player"]
+[node name="NoRotation" type="Node2D" parent="Player"]
+
+[node name="WallCastLeft" type="RayCast2D" parent="Player/NoRotation"]
 position = Vector2( -5, 0 )
 rotation = 1.57079
 enabled = true
-cast_to = Vector2( 0, 8 )
+exclude_parent = false
+cast_to = Vector2( 0, 9 )
 
-[node name="WallCastRight" type="RayCast2D" parent="Player"]
+[node name="WallCastRight" type="RayCast2D" parent="Player/NoRotation"]
 position = Vector2( 5, 0 )
 rotation = 1.57079
 enabled = true
-cast_to = Vector2( 0, -8 )
+exclude_parent = false
+cast_to = Vector2( 0, -9 )
 
-[node name="JumpCast" type="RayCast2D" parent="Player"]
+[node name="JumpCast" type="RayCast2D" parent="Player/NoRotation"]
 enabled = true
+exclude_parent = false
 cast_to = Vector2( 0, 16 )
 
-[node name="JumpCast2" type="RayCast2D" parent="Player"]
-position = Vector2( -5, 0 )
+[node name="JumpCast2" type="RayCast2D" parent="Player/NoRotation"]
+position = Vector2( -3.5, 0 )
 enabled = true
+exclude_parent = false
 cast_to = Vector2( 0, 16 )
 
-[node name="JumpCast3" type="RayCast2D" parent="Player"]
-position = Vector2( 5, 0 )
+[node name="JumpCast3" type="RayCast2D" parent="Player/NoRotation"]
+position = Vector2( 3.5, 0 )
 enabled = true
+exclude_parent = false
 cast_to = Vector2( 0, 16 )
 
 [node name="ChunkPlacer" type="Node2D" parent="."]
@@ -183,7 +190,7 @@ margin_right = 114.0
 margin_bottom = 238.0
 custom_colors/font_color = Color( 1, 1, 1, 0.34902 )
 custom_fonts/font = SubResource( 10 )
-text = "creikey"
+text = "creikey | kirbykid"
 
 [node name="UI" type="Control" parent="."]
 margin_right = 256.0

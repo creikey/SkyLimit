@@ -1,6 +1,6 @@
 extends Node
 
-const max_blocks: int = 8
+const max_blocks: int = 4
 
 signal reset_blocks_left_to(to)
 

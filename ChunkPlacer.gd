@@ -81,8 +81,7 @@ func _input(event):
 
 
 func _on_SessionManager_reset_blocks_left_to(to):
-	if upcoming_chunks.size() != to:
-		upcoming_chunks = []
-		for _i in range(0, to):
-			upcoming_chunks.append(get_new_random_chunk())
+	var new_size: int = upcoming_chunks.size() + to
+	while upcoming_chunks.size() < new_size:
+		upcoming_chunks.append(get_new_random_chunk())
 		updated_upcoming_chunks()

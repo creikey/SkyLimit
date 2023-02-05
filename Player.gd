@@ -1,22 +1,31 @@
 extends RigidBody2D
 
 const move_force_floor: float = 600.0 + 350.0
-const move_force_air: float = 300.0
+const move_force_air: float = 150.0
 const held_down_gravity_multiply: float = 0.5
 const jump_impulse: float = 230.0
+const wall_jump_up_impulse: float = jump_impulse * 0.8
+const wall_jump_impulse: float = 100.0
 
 var jumping: bool = false
 
 onready var jump_casts = [
-	$JumpCast,
-	$JumpCast2,
-	$JumpCast3,
+	$NoRotation/JumpCast,
+	$NoRotation/JumpCast2,
+	$NoRotation/JumpCast3,
 ]
 
 onready var wall_casts = [
-	$WallCastLeft,
-	$WallCastRight,
+	$NoRotation/WallCastLeft,
+	$NoRotation/WallCastRight,
 ]
+
+func _ready():
+	for j in jump_casts:
+		j.add_exception(self)
+	for w in wall_casts:
+		w.add_exception(self)
+		
 
 func on_floor() -> bool:
 	for j in jump_casts:
@@ -32,8 +41,7 @@ func touching_wall() -> bool:
 	
 func _physics_process(_delta):
 	applied_force = Vector2()
-	for j in jump_casts:
-		j.rotation = -global_rotation
+	$NoRotation.rotation = -global_rotation
 	var move_force: float
 	if on_floor():
 		move_force = move_force_floor
@@ -54,5 +62,13 @@ func _input(event):
 	if event.is_action_pressed("jump") and on_floor():
 		apply_central_impulse(Vector2(0, -jump_impulse))
 		jumping = true
-	elif event.is_action_released("jump"):
+	if not on_floor() and event.is_action_pressed("jump") and touching_wall():
+		var horizontal_impulse_direction: float = 0.0
+		if $NoRotation/WallCastLeft.is_colliding():
+			horizontal_impulse_direction = 1.0
+		else:
+			horizontal_impulse_direction = -1.0
+		apply_central_impulse(Vector2(horizontal_impulse_direction*wall_jump_impulse, -wall_jump_up_impulse))
+		jumping = true
+	if event.is_action_released("jump"):
 		jumping = false

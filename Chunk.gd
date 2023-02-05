@@ -30,4 +30,4 @@ func set_scale(s: Vector2):
 func place():
 	set_collision_layer_bit(0, true)
 	set_collision_mask_bit(0, true)
-	gravity_scale = 1.0
+	gravity_scale = 0.5
