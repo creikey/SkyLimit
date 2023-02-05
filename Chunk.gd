@@ -20,6 +20,10 @@ func _ready():
 	var local_center_of_mass: Vector2 = total / total_mass
 	tile.position = -local_center_of_mass
 
+func freeze():
+	mode = RigidBody2D.MODE_STATIC
+	$TileMap.material = preload("res://frozen.tres")
+
 func set_scale(s: Vector2):
 	$TileMap.scale = s
 

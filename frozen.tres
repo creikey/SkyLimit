@@ -1,0 +1,64 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+vec3 RGBtoHSV(vec3 rgb)
+{
+    // Hue: red = 0/6, yellow = 1/6, green = 2/6,
+    //      cyan = 3/6, blue = 4/6, magenta = 5/6
+    vec3 hsv;
+    float cmax = max(rgb.r, max(rgb.g, rgb.b));
+    float cmin = min(rgb.r, min(rgb.g, rgb.b));
+    
+    hsv.z = cmax; // value
+
+    float chroma = cmax - cmin;
+    //if(chroma != 0.0)
+    {
+        hsv.y = chroma / cmax; // saturation
+
+        //if(cmax == rgb.r)
+        if(rgb.r > rgb.g && rgb.r > rgb.b)
+        {
+            hsv.x = (0.0 + (rgb.g - rgb.b) / chroma) / 6.0; // hue
+        }
+        //else if(cmax == rgb.m_Green)
+        else if(rgb.g > rgb.b)
+        {
+            hsv.x = (2.0 + (rgb.b - rgb.r) / chroma) / 6.0; // hue
+        }
+        else
+        {
+            hsv.x = (4.0 + (rgb.r - rgb.g) / chroma) / 6.0; // hue
+        }
+
+        // Make sure hue is in range [0..1]
+        hsv.x = fract(hsv.x);
+    }
+    //else
+    //{
+    //    hsv.x = 0.0; // rnd();
+    //}
+    return hsv;
+}
+
+vec3 HSVtoRGB(in vec3 c) // thanks to iq for this much more compact version!
+{
+    vec3 rgb = clamp(abs(mod(c.x*6.0+vec3(0.0,4.0,2.0),6.0)-3.0)-1.0, 0.0, 1.0);
+    return c.z * mix(vec3(1.0), rgb, c.y);
+}
+
+void fragment() {
+	COLOR = texture(TEXTURE, UV);
+	
+	vec3 hsv = RGBtoHSV(COLOR.rgb);
+	
+	hsv.r = 0.6;
+	hsv.g = 0.3;
+	
+	COLOR.rgb = HSVtoRGB(hsv);
+}"
+
+[resource]
+shader = SubResource( 1 )

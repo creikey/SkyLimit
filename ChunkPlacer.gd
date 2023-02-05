@@ -61,7 +61,7 @@ func _process(delta):
 #	print(get_local_mouse_position())
 	if next_chunk != null:
 		next_chunk.global_position = (last_mouse - get_viewport().canvas_transform.get_origin()*2.0)/2.0
-		next_chunk.rotation += delta*deg2rad(rotation_amount)*(Input.get_action_strength("rotate_chunk_right") - Input.get_action_strength("rotate_chunk_left"))
+		next_chunk.rotation += delta*deg2rad(rotation_amount)*Input.get_action_strength("rotate_chunk_right")
 
 		if Input.is_action_just_pressed("place_chunk"):
 			$Place.play()
