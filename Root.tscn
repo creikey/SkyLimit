@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Main.tres" type="TileSet" id=1]
 [ext_resource path="res://Walls.gd" type="Script" id=2]
@@ -7,16 +7,17 @@
 [ext_resource path="res://wall.png" type="Texture" id=5]
 [ext_resource path="res://ChunkPlacer.gd" type="Script" id=6]
 [ext_resource path="res://gomarice_no_continue.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://particle.png" type="Texture" id=8]
+[ext_resource path="res://flap.wav" type="AudioStream" id=8]
+[ext_resource path="res://tiles.png" type="Texture" id=9]
 [ext_resource path="res://dot.png" type="Texture" id=10]
 [ext_resource path="res://UpNext.gd" type="Script" id=11]
 [ext_resource path="res://UI.gd" type="Script" id=12]
 [ext_resource path="res://SessionManager.gd" type="Script" id=13]
 [ext_resource path="res://place.wav" type="AudioStream" id=14]
 [ext_resource path="res://energize.wav" type="AudioStream" id=15]
-
-[sub_resource type="Curve" id=13]
-_data = [ Vector2( 0, 1 ), 0.0, 0.0766668, 0, 0, Vector2( 0.818182, 0 ), 0.0, 0.0, 0, 0 ]
+[ext_resource path="res://pickup.wav" type="AudioStream" id=16]
+[ext_resource path="res://hurt.wav" type="AudioStream" id=17]
+[ext_resource path="res://sideslap.wav" type="AudioStream" id=18]
 
 [sub_resource type="PhysicsMaterial" id=2]
 
@@ -34,6 +35,10 @@ font_data = ExtResource( 7 )
 font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=12]
+size = 26
+font_data = ExtResource( 7 )
+
+[sub_resource type="DynamicFont" id=14]
 size = 26
 font_data = ExtResource( 7 )
 
@@ -80,21 +85,6 @@ mouse_filter = 2
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
-visible = false
-position = Vector2( 132, 223 )
-amount = 6
-explosiveness = 1.0
-texture = ExtResource( 8 )
-spread = 180.0
-gravity = Vector2( 0, 0 )
-initial_velocity = 50.07
-initial_velocity_random = 0.58
-damping = 8.07
-scale_amount = 0.31
-scale_amount_random = 0.35
-scale_amount_curve = SubResource( 13 )
 
 [node name="Player" type="RigidBody2D" parent="."]
 position = Vector2( 132, 223 )
@@ -150,6 +140,21 @@ enabled = true
 exclude_parent = false
 cast_to = Vector2( 0, 16 )
 
+[node name="Pickup" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 16 )
+volume_db = -0.248
+
+[node name="Hurt" type="AudioStreamPlayer" parent="Player"]
+pause_mode = 2
+stream = ExtResource( 17 )
+
+[node name="Jump" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 8 )
+volume_db = 4.123
+
+[node name="SideJump" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource( 18 )
+
 [node name="ChunkPlacer" type="Node2D" parent="."]
 modulate = Color( 1, 1, 1, 0.635294 )
 script = ExtResource( 6 )
@@ -190,9 +195,10 @@ margin_right = 114.0
 margin_bottom = 238.0
 custom_colors/font_color = Color( 1, 1, 1, 0.34902 )
 custom_fonts/font = SubResource( 10 )
-text = "creikey | kirbykid"
+text = "creikey | Design oriented"
 
 [node name="UI" type="Control" parent="."]
+pause_mode = 2
 margin_right = 256.0
 margin_bottom = 256.0
 mouse_filter = 2
@@ -219,7 +225,48 @@ modulate = Color( 0.858824, 0.858824, 0.858824, 0.917647 )
 position = Vector2( 216, 24 )
 script = ExtResource( 11 )
 
+[node name="Hearts" type="Control" parent="UI"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="Heart1" type="Sprite" parent="UI/Hearts"]
+position = Vector2( 16, 16 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+region_enabled = true
+region_rect = Rect2( 96, 32, 8, 8 )
+
+[node name="Heart2" type="Sprite" parent="UI/Hearts"]
+position = Vector2( 40, 16 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+region_enabled = true
+region_rect = Rect2( 96, 32, 8, 8 )
+
+[node name="Heart3" type="Sprite" parent="UI/Hearts"]
+position = Vector2( 64, 16 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 9 )
+region_enabled = true
+region_rect = Rect2( 96, 32, 8, 8 )
+
+[node name="Died" type="ColorRect" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.568627 )
+
+[node name="Label" type="Label" parent="UI/Died"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "Died.
+R to restart"
+align = 1
+valign = 1
+
 [node name="SessionManager" type="Node" parent="."]
+pause_mode = 2
 script = ExtResource( 13 )
 
 [node name="Energize" type="AudioStreamPlayer" parent="SessionManager"]

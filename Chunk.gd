@@ -3,6 +3,7 @@ extends RigidBody2D
 class_name Chunk
 
 signal frozen
+signal placed
 
 onready var tile: TileMap = $TileMap
 
@@ -31,6 +32,7 @@ func set_scale(s: Vector2):
 	$TileMap.scale = s
 
 func place():
+	emit_signal("placed")
 	set_collision_layer_bit(0, true)
 	set_collision_mask_bit(0, true)
 	gravity_scale = 0.5

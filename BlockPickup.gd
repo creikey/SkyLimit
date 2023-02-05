@@ -17,6 +17,6 @@ func on_frozen():
 
 
 func _on_BlockPickup_body_entered(body):
-	if body is Player:
+	if enabled and body is Player:
 		body.on_collect_pickup()
 		queue_free()

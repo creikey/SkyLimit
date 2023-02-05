@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Chunk.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Decoration.tscn" type="PackedScene" id=2]
 [ext_resource path="res://BlockPickup.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Spike.tscn" type="PackedScene" id=4]
 
 [node name="Dirt" instance=ExtResource( 1 )]
 
@@ -52,3 +53,17 @@ chance_of_deleting = 0.3
 [node name="BlockPickup4" parent="TileMap" index="8" instance=ExtResource( 3 )]
 position = Vector2( 24, -16 )
 chance_of_deleting = 0.3
+
+[node name="Spike" parent="TileMap" index="9" instance=ExtResource( 4 )]
+position = Vector2( -16, -8 )
+rotation = -1.57079
+
+[node name="Spike2" parent="TileMap" index="10" instance=ExtResource( 4 )]
+position = Vector2( -16, 16 )
+rotation = -1.57079
+
+[node name="Spike3" parent="TileMap" index="11" instance=ExtResource( 4 )]
+position = Vector2( 24, 24 )
+
+[node name="Spike4" parent="TileMap" index="12" instance=ExtResource( 4 )]
+position = Vector2( 24, -16 )

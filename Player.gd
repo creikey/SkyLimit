@@ -3,6 +3,7 @@ extends RigidBody2D
 class_name Player
 
 signal collected_pickup
+signal hurt
 
 const move_force_floor: float = 600.0 + 350.0
 const move_force_air: float = 150.0
@@ -11,6 +12,7 @@ const jump_impulse: float = 230.0
 const wall_jump_up_impulse: float = jump_impulse * 0.8
 const wall_jump_impulse: float = 100.0
 
+var lives: int = 3
 var jumping: bool = false
 
 onready var jump_casts = [
@@ -31,6 +33,11 @@ func _ready():
 		w.add_exception(self)
 		
 
+func hurt(amount_lives: int):
+	lives -= amount_lives
+	$Hurt.play()
+	emit_signal("hurt")
+
 func on_floor() -> bool:
 	for j in jump_casts:
 		if j.is_colliding():
@@ -44,6 +51,7 @@ func touching_wall() -> bool:
 	return false
 
 func on_collect_pickup():
+	$Pickup.play()
 	emit_signal("collected_pickup")
 
 func _physics_process(_delta):
@@ -68,13 +76,26 @@ func _physics_process(_delta):
 func _input(event):
 	if event.is_action_pressed("jump") and on_floor():
 		apply_central_impulse(Vector2(0, -jump_impulse))
+		$Jump.pitch_scale = rand_range(0.9, 1.1)
+		$Jump.play()
+		var new_particle: Node2D = preload("res://JumpParticles.tscn").instance()
+		get_parent().add_child(new_particle)
+		new_particle.global_position = global_position
 		jumping = true
 	if not on_floor() and event.is_action_pressed("jump") and touching_wall():
 		var horizontal_impulse_direction: float = 0.0
+		$SideJump.play()
 		if $NoRotation/WallCastLeft.is_colliding():
 			horizontal_impulse_direction = 1.0
+			var new_particle: Node2D = preload("res://RightParticles.tscn").instance()
+			get_parent().add_child(new_particle)
+			new_particle.global_position = global_position
 		else:
 			horizontal_impulse_direction = -1.0
+			var new_particle: Node2D = preload("res://RightParticles.tscn").instance()
+			get_parent().add_child(new_particle)
+			new_particle.global_position = global_position
+			new_particle.scale.x = -1.0
 		apply_central_impulse(Vector2(horizontal_impulse_direction*wall_jump_impulse, -wall_jump_up_impulse))
 		jumping = true
 	if event.is_action_released("jump"):

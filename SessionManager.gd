@@ -20,6 +20,7 @@ func _process(_delta):
 		emit_signal("reset_blocks_left_to", max_blocks)
 		for b in root.get_node("Chunks").get_children():
 			b.freeze()
+		root.get_node("Player").lives = 3
 # warning-ignore:narrowing_conversion
 	score = max(score, -int(player.global_position.y - 223.0))
 	
@@ -27,6 +28,7 @@ func _process(_delta):
 	root.get_node("UI/Score").text = str(score)
 	root.get_node("NextLine").global_position.y = must_get_to_height
 
-func _input(event):
-	if event.is_action_pressed("restart"):
+	if Input.is_action_just_pressed("restart"):
+		get_tree().paused = false
 		var _err = get_tree().reload_current_scene()
+		
