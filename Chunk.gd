@@ -59,4 +59,11 @@ func place():
 	emit_signal("placed")
 	set_collision_layer_bit(0, true)
 	set_collision_mask_bit(0, true)
+	mode = RigidBody2D.MODE_STATIC
+	$FallTimer.start()
+
+
+func _on_FallTimer_timeout():
+	sleeping = false
+	mode = RigidBody2D.MODE_RIGID
 	gravity_scale = 0.5

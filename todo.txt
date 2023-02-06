@@ -14,7 +14,7 @@ DONE - lower terminal velocity
 DONE - clicking locks the chunk in place, releasing places it. While you're holding down click after you cross then it's placed and frozen
 DONE - Area inside of walls that freezes boxes if they're intersecting
 DONE - put number of pieces left on top of cursor
- - chunks hang in air shake then start falling
+DONE - chunks hang in air shake then start falling
  - best pieces have higher chance of spike
  - thin platforms one way platfoms
  - cover up spike sound effect

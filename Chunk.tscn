@@ -20,3 +20,9 @@ visible = false
 scale = Vector2( 0.032, 0.032 )
 texture = ExtResource( 3 )
 centered = false
+
+[node name="FallTimer" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="timeout" from="FallTimer" to="." method="_on_FallTimer_timeout"]
