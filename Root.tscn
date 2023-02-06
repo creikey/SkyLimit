@@ -218,11 +218,14 @@ script = ExtResource( 12 )
 
 [node name="HowManyLeft" type="Label" parent="UI"]
 anchor_right = 1.0
+margin_right = -159.0
 margin_bottom = 17.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 11 )
 text = "15231"
-align = 2
+align = 1
+valign = 1
+autowrap = true
 
 [node name="Score" type="Label" parent="UI"]
 anchor_right = 1.0

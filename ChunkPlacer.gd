@@ -26,7 +26,10 @@ const chunks: Array = [
 var upcoming_chunks: Array = []
 
 func chunks_left() -> int: # ui
-	return upcoming_chunks.size()
+	var to_return: int = upcoming_chunks.size()
+	if next_chunk != null:
+		to_return += 1
+	return to_return
 
 func get_new_random_chunk() -> PackedScene:
 	var total: float = 0.0
