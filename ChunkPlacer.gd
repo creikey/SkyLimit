@@ -20,16 +20,21 @@ const chunks: Array = [
 	[0.7, preload("res://chunks/DirtLadder.tscn")],
 	[0.5, preload("res://chunks/DirtBigIsland.tscn")],
 	[0.4, preload("res://chunks/DirtBracket.tscn")],
-	[0.4, preload("res://chunks/Ladder.tscn")],
+	[0.5, preload("res://chunks/Ladder.tscn")],
 ]
 
-var upcoming_chunks: Array = []
+var upcoming_chunks: Array = [
+	preload("res://chunks/DirtLog.tscn"),
+	preload("res://chunks/DirtLog.tscn"),
+	preload("res://chunks/Ladder.tscn")
+]
 
 func chunks_left() -> int: # ui
 	var to_return: int = upcoming_chunks.size()
 	if next_chunk != null:
 		to_return += 1
 	return to_return
+
 
 func get_new_random_chunk() -> PackedScene:
 	var total: float = 0.0

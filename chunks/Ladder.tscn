@@ -1,8 +1,22 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Chunk.tscn" type="PackedScene" id=1]
 
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 48 )
+
 [node name="Ladder" instance=ExtResource( 1 )]
+collision_layer = 1
+collision_mask = 1
+one_way_platform = true
 
 [node name="TileMap" parent="." index="0"]
 tile_data = PoolIntArray( -393216, 13, 0, -196608, 13, 0, 0, 13, 0, 196608, 13, 0 )
+
+[node name="PlayerOverlapArea" type="Area2D" parent="TileMap" index="0"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/PlayerOverlapArea" index="0"]
+position = Vector2( 4, 0 )
+shape = SubResource( 1 )

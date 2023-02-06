@@ -61,6 +61,7 @@ func _process(delta):
 
 func _physics_process(_delta):
 	applied_force = Vector2()
+	
 	$NoRotation.rotation = -global_rotation
 	var move_force: float
 	if on_floor():
@@ -83,6 +84,14 @@ func _integrate_forces(state):
 		state.linear_velocity = state.linear_velocity.normalized() * max_velocity
 
 func _input(event):
+	if event.is_action_pressed("drop_down_one_way_platform"):
+		var one_way_platform: Chunk = null
+		for j in jump_casts:
+			if j.is_colliding() and j.get_collider() is Chunk:
+				one_way_platform = j.get_collider()
+				break
+		if one_way_platform != null:
+			one_way_platform.drop()
 	if not jumping and event.is_action_pressed("jump") and on_floor():
 		apply_central_impulse(Vector2(0, -jump_impulse))
 		$Jump.pitch_scale = rand_range(0.9, 1.1)

@@ -17,15 +17,8 @@ DONE - put number of pieces left on top of cursor
 DONE - chunks hang in air shake then start falling
 DONE - best pieces have higher chance of spike
 DONE - ball turn red when get hurt
- - thin platforms one way platfoms
- - cover up spike sound effect
-
-1 big island
-bracket
-hump
-island
-ladder
-log
+ONE - thin platforms one way platfoms
+DONE - raycast from spike to make sure it's not embedded
 
 
 backburner:
@@ -33,3 +26,4 @@ backburner:
  - zero gravity for chunk
  - enemies that move in general
  - worm enemy
+ - cover up spike sound effect
