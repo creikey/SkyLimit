@@ -35,6 +35,7 @@ func _ready():
 		
 
 func hurt(amount_lives: int):
+	modulate = Color(1, 0, 0)
 	lives -= amount_lives
 	$Hurt.play()
 	emit_signal("hurt")
@@ -54,6 +55,9 @@ func touching_wall() -> bool:
 func on_collect_pickup():
 	$Pickup.play()
 	emit_signal("collected_pickup")
+
+func _process(delta):
+	modulate = lerp(modulate, Color(1, 1, 1), 4.0 * delta)
 
 func _physics_process(_delta):
 	applied_force = Vector2()

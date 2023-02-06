@@ -8,7 +8,7 @@ onready var hearts = [
 
 func _input(event):
 	if event is InputEventMouseMotion:
-		$HowManyLeft.rect_position = event.position/2.0 - Vector2($HowManyLeft.rect_size.x/2.0, 0.0)
+		$HowManyLeft.rect_position = event.position/2.0 - Vector2($HowManyLeft.rect_size.x/2.0, $HowManyLeft.rect_size.y/2.0)
 
 func _process(_delta):
 	rect_position.y = -get_viewport().canvas_transform.get_origin().y

@@ -16,9 +16,9 @@ DONE - Area inside of walls that freezes boxes if they're intersecting
 DONE - put number of pieces left on top of cursor
 DONE - chunks hang in air shake then start falling
 DONE - best pieces have higher chance of spike
+DONE - ball turn red when get hurt
  - thin platforms one way platfoms
  - cover up spike sound effect
- - ball turn red when get hurt
 
 1 big island
 bracket
