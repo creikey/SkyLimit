@@ -279,4 +279,5 @@ stream = ExtResource( 15 )
 
 [connection signal="collected_pickup" from="Player" to="ChunkPlacer" method="_on_Player_collected_pickup"]
 [connection signal="up_next_changed" from="ChunkPlacer" to="UI/UpNext" method="_on_ChunkPlacer_up_next_changed"]
+[connection signal="about_to_cross_line" from="SessionManager" to="ChunkPlacer" method="_on_SessionManager_about_to_cross_line"]
 [connection signal="reset_blocks_left_to" from="SessionManager" to="ChunkPlacer" method="_on_SessionManager_reset_blocks_left_to"]

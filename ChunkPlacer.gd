@@ -9,6 +9,8 @@ const preview_chunks: int = 3
 
 onready var place_onto: Node = get_node(place_onto_path)
 var next_chunk: Chunk = null
+var locked: bool = false
+
 
 # first element is relative probability
 const chunks: Array = [
@@ -53,14 +55,14 @@ func updated_upcoming_chunks():
 	emit_signal("up_next_changed", chunks_to_preview)
 
 func _process(delta):
-	
 	if next_chunk == null and upcoming_chunks.size() > 0:
 		next_chunk = upcoming_chunks.pop_front().instance()
 		updated_upcoming_chunks()
 		add_child(next_chunk)
 #	print(get_local_mouse_position())
 	if next_chunk != null:
-		next_chunk.global_position = (last_mouse - get_viewport().canvas_transform.get_origin()*2.0)/2.0
+		if not locked:
+			next_chunk.global_position = (last_mouse - get_viewport().canvas_transform.get_origin()*2.0)/2.0
 		next_chunk.rotation += delta*deg2rad(rotation_amount)*Input.get_action_strength("rotate_chunk_right")
 		var overlapping: bool = next_chunk.overlapping()
 		if overlapping:
@@ -73,21 +75,22 @@ func _process(delta):
 				$CantPlace.pitch_scale = rand_range(0.9, 1.1)
 				$CantPlace.play()
 			else:
-				$Place.play()
-				remove_child(next_chunk)
-				place_onto.add_child(next_chunk)
-				next_chunk.place()
-				next_chunk = null
+				locked = true
+		
+		if locked and Input.is_action_just_released("place_chunk"):
+			place_current_chunk()
 
-#func _unhandled_input(event):
-#	if event is InputEventMouseButton:
-#		if event.button_index == BUTTON_WHEEL_UP:
-#			next_chunk.rotation += deg2rad(rotation_amount)
+func place_current_chunk():
+	locked = false
+	$Place.play()
+	remove_child(next_chunk)
+	place_onto.add_child(next_chunk)
+	next_chunk.place()
+	next_chunk = null
 
 func _input(event):
 	if event is InputEventMouseMotion:
 		last_mouse = event.position
-
 
 func _on_SessionManager_reset_blocks_left_to(to):
 	var new_size: int = upcoming_chunks.size() + to
@@ -95,7 +98,10 @@ func _on_SessionManager_reset_blocks_left_to(to):
 		upcoming_chunks.append(get_new_random_chunk())
 		updated_upcoming_chunks()
 
-
 func _on_Player_collected_pickup():
 	upcoming_chunks.append(get_new_random_chunk())
 	updated_upcoming_chunks()
+
+func _on_SessionManager_about_to_cross_line():
+	if locked:
+		place_current_chunk()

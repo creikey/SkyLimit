@@ -2,6 +2,7 @@ extends Node
 
 const max_blocks: int = 3
 
+signal about_to_cross_line
 signal reset_blocks_left_to(to)
 
 onready var player: Node2D = get_node("../Player")
@@ -15,6 +16,7 @@ func _ready():
 
 func _process(_delta):
 	if player.global_position.y <= must_get_to_height:
+		emit_signal("about_to_cross_line")
 		must_get_to_height -= 128.0
 		$Energize.play()
 		emit_signal("reset_blocks_left_to", max_blocks)
