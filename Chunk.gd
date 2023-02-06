@@ -26,7 +26,7 @@ func _ready():
 	tile.position = -local_center_of_mass
 
 var trans_debug := Transform2D()
-
+var frozen: bool = false
 
 func overlapping() -> bool:
 	var space_state: Physics2DDirectSpaceState = get_world_2d().direct_space_state
@@ -48,6 +48,7 @@ func overlapping() -> bool:
 	return false
 
 func freeze():
+	frozen = true
 	emit_signal("frozen")
 	set_deferred("mode", RigidBody2D.MODE_STATIC)
 	$TileMap.material = preload("res://frozen.tres")
@@ -62,8 +63,9 @@ func place():
 	mode = RigidBody2D.MODE_STATIC
 	$FallTimer.start()
 
-
 func _on_FallTimer_timeout():
+	if frozen:
+		return
 	sleeping = false
 	mode = RigidBody2D.MODE_RIGID
 	gravity_scale = 0.5

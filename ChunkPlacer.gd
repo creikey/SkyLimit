@@ -81,7 +81,12 @@ func _process(delta):
 				locked = true
 		
 		if locked and Input.is_action_just_released("place_chunk"):
-			place_current_chunk()
+			locked = false
+			if overlapping:
+				$CantPlace.pitch_scale = rand_range(0.9, 1.1)
+				$CantPlace.play()
+			else:
+				place_current_chunk()
 
 func place_current_chunk():
 	locked = false

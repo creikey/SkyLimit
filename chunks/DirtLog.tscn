@@ -48,6 +48,14 @@ position = Vector2( 0, -40 )
 position = Vector2( 16, -16 )
 rotation = 1.57079
 
-[node name="Spike2" parent="TileMap" index="8" instance=ExtResource( 4 )]
+[node name="Spike3" parent="TileMap" index="8" instance=ExtResource( 4 )]
+position = Vector2( -16, 16 )
+rotation = 4.71238
+
+[node name="Spike4" parent="TileMap" index="9" instance=ExtResource( 4 )]
+position = Vector2( -16, -16 )
+rotation = 4.71238
+
+[node name="Spike2" parent="TileMap" index="10" instance=ExtResource( 4 )]
 position = Vector2( 16, 16 )
 rotation = 1.57079

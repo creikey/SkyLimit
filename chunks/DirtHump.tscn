@@ -50,10 +50,12 @@ position = Vector2( 0, -16 )
 
 [node name="Spike" parent="TileMap" index="8" instance=ExtResource( 4 )]
 position = Vector2( 8, -40 )
+chance_is_destroyed = 0.9
 
 [node name="Spike2" parent="TileMap" index="9" instance=ExtResource( 4 )]
 position = Vector2( -16, 40 )
 rotation = 3.14159
+chance_is_destroyed = 0.9
 
 [node name="Spike3" parent="TileMap" index="10" instance=ExtResource( 4 )]
 position = Vector2( 0, 16 )
@@ -61,3 +63,4 @@ rotation = 1.57079
 
 [node name="BlockPickup3" parent="TileMap" index="11" instance=ExtResource( 3 )]
 position = Vector2( 0, 16 )
+chance_of_deleting = 0.9

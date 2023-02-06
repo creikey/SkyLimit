@@ -60,11 +60,26 @@ position = Vector2( 8, 32 )
 
 [node name="Spike" parent="TileMap" index="11" instance=ExtResource( 4 )]
 position = Vector2( -8, -32 )
+chance_is_destroyed = 0.7
 
-[node name="Spike2" parent="TileMap" index="12" instance=ExtResource( 4 )]
+[node name="Spike4" parent="TileMap" index="12" instance=ExtResource( 4 )]
+position = Vector2( 16, -32 )
+chance_is_destroyed = 0.7
+
+[node name="Spike5" parent="TileMap" index="13" instance=ExtResource( 4 )]
+position = Vector2( 32, -24 )
+rotation = 1.57079
+chance_is_destroyed = 0.7
+
+[node name="Spike6" parent="TileMap" index="14" instance=ExtResource( 4 )]
+position = Vector2( -32, -8 )
+rotation = 4.71238
+chance_is_destroyed = 0.7
+
+[node name="Spike2" parent="TileMap" index="15" instance=ExtResource( 4 )]
 position = Vector2( 24, 32 )
 rotation = 3.14159
 
-[node name="Spike3" parent="TileMap" index="13" instance=ExtResource( 4 )]
+[node name="Spike3" parent="TileMap" index="16" instance=ExtResource( 4 )]
 position = Vector2( 32, 16 )
 rotation = 1.57079
