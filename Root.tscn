@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Main.tres" type="TileSet" id=1]
 [ext_resource path="res://Walls.gd" type="Script" id=2]
@@ -19,6 +19,7 @@
 [ext_resource path="res://hurt.wav" type="AudioStream" id=17]
 [ext_resource path="res://sideslap.wav" type="AudioStream" id=18]
 [ext_resource path="res://cantplace.wav" type="AudioStream" id=19]
+[ext_resource path="res://FreezeArea.tscn" type="PackedScene" id=20]
 
 [sub_resource type="PhysicsMaterial" id=2]
 
@@ -62,6 +63,9 @@ centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 8, 256 )
 
+[node name="FreezeArea" parent="Walls/LeftSprite" instance=ExtResource( 20 )]
+position = Vector2( -4, 0 )
+
 [node name="RightSprite" type="Sprite" parent="Walls"]
 position = Vector2( 248, 0 )
 texture = ExtResource( 5 )
@@ -69,6 +73,9 @@ centered = false
 flip_h = true
 region_enabled = true
 region_rect = Rect2( 0, 0, 8, 256 )
+
+[node name="FreezeArea2" parent="Walls/RightSprite" instance=ExtResource( 20 )]
+position = Vector2( 11.5, 0 )
 
 [node name="Floor" type="StaticBody2D" parent="."]
 

@@ -29,7 +29,6 @@ var trans_debug := Transform2D()
 
 
 func overlapping() -> bool:
-	update()
 	var space_state: Physics2DDirectSpaceState = get_world_2d().direct_space_state
 	var shape := RectangleShape2D.new()
 	var tile_size := Vector2(8.0, 8.0)
@@ -50,7 +49,7 @@ func overlapping() -> bool:
 
 func freeze():
 	emit_signal("frozen")
-	mode = RigidBody2D.MODE_STATIC
+	set_deferred("mode", RigidBody2D.MODE_STATIC)
 	$TileMap.material = preload("res://frozen.tres")
 
 func set_scale(s: Vector2):
