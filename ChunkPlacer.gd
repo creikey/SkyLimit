@@ -24,9 +24,9 @@ const chunks: Array = [
 ]
 
 var upcoming_chunks: Array = [
-	preload("res://chunks/DirtLog.tscn"),
-	preload("res://chunks/DirtLog.tscn"),
-	preload("res://chunks/Ladder.tscn")
+#	preload("res://chunks/DirtLog.tscn"),
+#	preload("res://chunks/DirtLog.tscn"),
+#	preload("res://chunks/Ladder.tscn")
 ]
 
 func chunks_left() -> int: # ui

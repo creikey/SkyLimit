@@ -5,15 +5,15 @@ class_name Player
 signal collected_pickup
 signal hurt
 
-const max_velocity: float = 500.0
+const max_velocity: float = 400.0
 const move_force_floor: float = 600.0 + 350.0
 const move_force_air: float = 150.0
 const held_down_gravity_multiply: float = 0.5
 const jump_impulse: float = 230.0
 const wall_jump_up_impulse: float = jump_impulse * 0.8
 const wall_jump_impulse: float = 100.0
-
 var lives: int = 3
+
 var jumping: bool = false
 
 onready var jump_casts = [
