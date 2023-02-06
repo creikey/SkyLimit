@@ -74,7 +74,7 @@ func _physics_process(_delta):
 	applied_force += Vector2(Input.get_action_strength("right") - Input.get_action_strength("left"), 0.0)*move_force
 
 func _input(event):
-	if event.is_action_pressed("jump") and on_floor():
+	if not jumping and event.is_action_pressed("jump") and on_floor():
 		apply_central_impulse(Vector2(0, -jump_impulse))
 		$Jump.pitch_scale = rand_range(0.9, 1.1)
 		$Jump.play()

@@ -23,6 +23,7 @@ func _ready():
 	var local_center_of_mass: Vector2 = total / total_mass
 	tile.position = -local_center_of_mass
 
+
 func freeze():
 	emit_signal("frozen")
 	mode = RigidBody2D.MODE_STATIC
