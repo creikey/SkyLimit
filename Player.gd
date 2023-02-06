@@ -5,6 +5,7 @@ class_name Player
 signal collected_pickup
 signal hurt
 
+const max_velocity: float = 500.0
 const move_force_floor: float = 600.0 + 350.0
 const move_force_air: float = 150.0
 const held_down_gravity_multiply: float = 0.5
@@ -72,6 +73,10 @@ func _physics_process(_delta):
 		gravity_scale = 1.0
 	
 	applied_force += Vector2(Input.get_action_strength("right") - Input.get_action_strength("left"), 0.0)*move_force
+
+func _integrate_forces(state):
+	if state.linear_velocity.length() >= max_velocity:
+		state.linear_velocity = state.linear_velocity.normalized() * max_velocity
 
 func _input(event):
 	if not jumping and event.is_action_pressed("jump") and on_floor():
