@@ -62,13 +62,22 @@ func _process(delta):
 	if next_chunk != null:
 		next_chunk.global_position = (last_mouse - get_viewport().canvas_transform.get_origin()*2.0)/2.0
 		next_chunk.rotation += delta*deg2rad(rotation_amount)*Input.get_action_strength("rotate_chunk_right")
+		var overlapping: bool = next_chunk.overlapping()
+		if overlapping:
+			next_chunk.modulate = Color(1, 0, 0)
+		else:
+			next_chunk.modulate = Color(1, 1, 1)
 
 		if Input.is_action_just_pressed("place_chunk"):
-			$Place.play()
-			remove_child(next_chunk)
-			place_onto.add_child(next_chunk)
-			next_chunk.place()
-			next_chunk = null
+			if overlapping:
+				$CantPlace.pitch_scale = rand_range(0.9, 1.1)
+				$CantPlace.play()
+			else:
+				$Place.play()
+				remove_child(next_chunk)
+				place_onto.add_child(next_chunk)
+				next_chunk.place()
+				next_chunk = null
 
 #func _unhandled_input(event):
 #	if event is InputEventMouseButton:
